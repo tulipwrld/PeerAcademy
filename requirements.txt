@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+authx
+aiohttp
+PyJWT==2.8.0
+sqlalchemy
+asyncpg
+greenlet
+starlette
+aiofiles
+botocore
+python-multipart
+aiobotocore
+mistralai
+pydantic-settings
+python-dotenv

@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${user}
+      POSTGRES_PASSWORD: ${password}
+      POSTGRES_DB: ${db_name}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${user} -d ${db_name}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      host: db
+      port: 5432
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      WEBAPP_URL: http://localhost
+      WEBHOOK_URL: http://localhost/api
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  ai:
+    build:
+      context: .
+      dockerfile: Dockerfile.ai
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8001:8001"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - ai
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:

@@ -1,0 +1,517 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.profile-container {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 100px;
+    margin-bottom: 40px;
+    flex-shrink: 0;
+}
+
+.user-info-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.user-name {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #2d3748;
+}
+
+.user-email {
+    color: #718096;
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.user-grade {
+    margin-top: 15px;
+}
+
+.grade-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 25px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Основной контент - растягивается и позволяет скролл */
+.profile-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 400px; /* Минимальная высота чтобы контент был виден */
+}
+
+/* Увеличим отступы и добавим больше контента для скролла */
+.interviews-section,
+.stats-section {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 40px 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 15px;
+}
+
+/* Сетка интервью */
+.interviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.interview-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-height: 180px; /* Минимальная высота карточек */
+}
+
+.interview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #c3cfe2;
+}
+
+.interview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.interview-date {
+    font-size: 13px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.interview-status {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.interview-status.completed {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.interview-status.pending {
+    background: #fef5e7;
+    color: #744210;
+}
+
+.interview-status.failed {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.interview-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #2d3748;
+    line-height: 1.3;
+}
+
+.interview-description {
+    font-size: 14px;
+    color: #718096;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+    min-height: 40px; /* Минимальная высота описания */
+}
+
+.interview-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #f7fafc;
+}
+
+.interview-score {
+    font-size: 16px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+/* Состояние "пусто" - увеличим высоту */
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    background: #f8fafc;
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+}
+
+.empty-state h4 {
+    font-size: 20px;
+    color: #2d3748;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #718096;
+    margin: 0;
+    font-size: 15px;
+}
+
+/* Статистика */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    min-height: 120px;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+    display: block;
+    font-size: 36px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* Загрузка */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 80vh;
+    text-align: center;
+}
+
+.loading p {
+    font-size: 18px;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+/* Кастомный скроллбар для всей страницы */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #c3cfe2 0%, #a0aec0 100%);
+    border-radius: 6px;
+    border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 15px;
+    }
+    
+    .profile-header {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .user-info-card {
+        padding: 30px 20px;
+    }
+    
+    .user-avatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .user-name {
+        font-size: 24px;
+    }
+    
+    .interviews-section,
+    .stats-section {
+        padding: 25px 20px;
+        margin-bottom: 25px;
+    }
+    
+    .interviews-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 25px 15px;
+        min-height: 100px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .empty-state {
+        padding: 60px 20px;
+        min-height: 150px;
+    }
+}
+
+/* Добавим дополнительный контент для демонстрации скролла */
+.additional-content {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.additional-content h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+
+/* Кнопка редактирования профиля */
+.edit-profile-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #F5C842 0%, #e7e594 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.edit-profile-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Форма редактирования */
+.edit-profile-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Статус сохранения */
+.save-status {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.save-status.saving {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.save-status.success {
+    background-color: #e8f5e9;
+    color: #F5C842;
+}
+
+.save-status.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Кнопки редактирования */
+.edit-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save-btn,
+.cancel-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-btn {
+    background-color: #2c2c29;
+    color: white;
+}
+
+.save-btn:hover:not(:disabled) {
+    background-color: #F5C842;
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    background-color: #2c2c29;
+    color: white;
+}
+
+.cancel-btn:hover:not(:disabled) {
+    background-color: #da190b;
+    transform: translateY(-1px);
+}
+
+.save-btn:disabled,
+.cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
